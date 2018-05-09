@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Myraseed.com Admin</title>
+  <head>
+      
+    <meta charset="utf-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/lumen/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.5.0/bootstrap-table.min.css">
+
+<script src="jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.5.0/bootstrap-table.min.js"></script>
+<!--<script src="//www.jeasyui.com/easyui/jquery.easyui.min.js"></script>-->
+<script src="files/jquery.easyui.min.js"></script>
+<script src="http://p.ar2oor.pl/cprogress/jCProgress-1.0.3.js"></script>
+
+
+</head>
+
+
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="row clearfix">
+				<div  class="col-md-12 column">
+					
+					<div id="header" class="navbar navbar-default">
+						  <div class="navbar-header">
+						    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+						      <span class="icon-bar"></span>
+						      <span class="icon-bar"></span>
+						      <span class="icon-bar"></span>
+						    </button>
+						    <a class="navbar-brand" href="#">Myraseed.com</a>
+						  </div>
+						  <div class="navbar-collapse collapse navbar-inverse-collapse">
+						    <ul class="nav navbar-nav">
+						          <li><a href="#" onclick="go_to('show_cards')">Card List</a></li>		
+						          <li><a href="#" onclick="go_to('add_card_form')">Add a Card</a></li>  
+						       
+					              <li><a href="#" onclick="go_to('show_logs')">Show Logs</a></li>  		
+					              			                          					               					             
+					               
+
+					           <li class="dropdown">
+						        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b></a>
+						        <ul class="dropdown-menu">
+						          <li><a href="#" onclick="go_to('count_cards')">Report 0</a></li>  					                           
+						           <li><a href="#" onclick="go_to('report1')">Report 1</a></li>  
+						           <li><a href="#" onclick="go_to('report2')">Report 2</a></li>  
+						        </ul>
+						      </li>     
+					          
+					          <li class="dropdown">
+						        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Payment Details<b class="caret"></b></a>
+						        <ul class="dropdown-menu">
+						          <li><a href="#" onclick="go_to('show_payments')">Payment History</a></li>					                           
+						           <li><a href="#" onclick="go_to('show_ipn')">Payment Details</a></li>					                            
+					               <li><a href="#" onclick="go_to('send_card_form')">Send Card Manually</a></li> 
+						        </ul>
+						      </li>
+
+					              	
+						      <li class="dropdown">
+						        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Offer Settings<b class="caret"></b></a>
+						        <ul class="dropdown-menu">
+						           <li><a href="#" onclick="go_to('show_feedback')">Show Feedback</a></li>   
+					               <li><a href="#" onclick="go_to('show_offer')">Show Numbers in offer</a></li>  
+					               <li><a href="#" onclick="go_to('add_offer_form')">Add Number to offer</a></li>  
+						        </ul>
+						      </li>
+						    </ul>	
+						    			 <ul class="nav navbar-nav navbar-right">
+						    			 <li><a href="#" onclick="loadp();">Load Pages</a></li>	
+										      <li><a href="#" onclick="go_to('login_page');$( '#header' ).hide();">Logout</a></li>										      
+										 </ul>
+
+						  </div>
+						</div>
+
+
+				</div>
+			</div>
+			<div class="row clearfix">
+				<div class="col-md-1 column">
+				</div>
+				<div  class="col-md-10 column container" >
+					
+					<div class="">
+						 <div id="loading" align='center'><h3>Loading....</h3></div>
+						  <div id="content" class="panel-body" style="max-height: 500px;overflow: auto;">
+    					<div align='left'>
+    						<h2>W-elcome to Secure Myraseed Page! Please enter Password to login. </h2><br>
+    						<input type="password" class="form-control" id="password" placeholder="Password" required> 
+    						<a id="login_button" href="#" class="btn btn-danger" onclick="checkme()">Login !</a>
+
+    					</div>
+  							</div>
+					</div>
+
+				</div>
+				
+				<div class="col-md-1 column">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+var pages = [];
+//$("#header").hide();
+$("#content").hide();
+var loadingpageurl = "<div align='center'><h3>Loading....</h3></div>";
+//$("#content").html(loadingpageurl);
+</script>
+
+
+<script type="text/javascript">
+
+function displayme(){
+$("#loading").hide();
+$("#content").fadeIn("slow");
+}//displ
+
+function go_to_page($url){
+console.log("Loading from Server:"+$url);	
+var x="http://myraseed.com/cards/index.php/secure_data/"+$url;
+//$("#content").html(loadingpageurl);
+$("#content").html(loadingpageurl);
+//$("#content").hide();
+//$("#loading").show();
+
+$('#content').load(x, "",
+        function(responseText, textStatus, XMLHttpRequest) {         
+        	console.log("Loading-Done:"+$url);
+	 	 //$("#loading").hide();
+	 	 //$("#content").delay(5000).fadeIn("slow");
+	 	 //setTimeout(displayme,1000);
+	 	 displayme();
+	 	 //$("#content").delay(5000);  	 	               	 	
+            if(textStatus == 'error') {
+            	 $('#content').html('<div align="center"><h3>Error in Loading Page !....</h3></div>');
+            }
+        }
+    );
+
+}// to to
+
+function go_to($url){
+
+if (!pages[$url]) {	
+	go_to_page($url);
+	//pages[$url] = get_page($url);
+} else{
+	console.log("Loading Caching:"+$url);
+	//$("#loading").show();
+	$("#content").html(loadingpageurl);
+	$("#content").hide();
+	$("#content").html(pages[$url]);
+	//setTimeout(displayme,1000);
+	displayme();
+	//pages[$url] = get_page($url);
+};
+//get_page2($url);
+}// to to
+
+
+ </script>
+
+<script>
+
+function checkme(){  
+  var xx = $("#password").val();
+  if (xx=="") {
+  	alert("Please Enter Password!");
+  } 
+  else{
+  $("#login_button").button('loading');  
+  $.ajax({
+    url: 'http://myraseed.com/cards/index.php/secure_data/check_me/'+xx,
+    type:'GET',
+    dataType: 'json',
+    context: this,
+    success: function(values)
+            {               
+                if (values.sts=="true") {
+				 $( "#header" ).show();
+				 //load_all_pages();                		
+                 go_to("welcome_page");
+                } 
+                
+                if (values.sts=="false") {
+				 alert("Wrong Password !");                 
+                }                                                             
+            $("#login_button").button('reset');
+            } 
+  });
+};
+}//check me
+</script>
+
+
+</html>
+
+<script type="text/javascript">// A $( document ).ready() block.
+
+function get_page_____($url){
+console.log("Loading_Array:"+$url);
+var scriptUrl ="http://myraseed.com/cards/index.php/secure_data/"+$url;
+$.ajax({
+        url: scriptUrl,
+        type: 'get',
+        dataType: 'html',
+        async: false,
+        success: function(data) {
+            result = data;
+        } 
+     });
+
+return result;
+}// get page
+
+function get_page2($url){
+//console.log("Loading_Array:"+$url);
+var scriptUrl ="http://myraseed.com/cards/index.php/secure_data/"+$url;
+$.ajax({
+        url: scriptUrl,
+        type: 'get',
+        dataType: 'html',
+        async: true,
+        success: function(data) {
+            result = data;
+            pages[$url] = result;
+            console.log("Loading_ARR DONE:"+$url);
+        } 
+     });
+}// get page2
+
+
+function loadp(){
+
+//load_all_pages();
+$("#content").html('<div class="progress progress-striped active"><div id="bar" class="progress-bar" style="width: 0%"></div></div>');
+
+
+var width=0;
+//for (i = 0; i < 100; i++) { 
+// setTimeout(function() {$('#bar').css('width', i + "%");$('#bar').html(i + "%");}, 3000);
+var progression = 0;
+
+    progress = setInterval(function() 
+    {
+        $('#bar').html(progression + '%');
+        $('#bar').css({'width':progression+'%'});
+        if(progression == 100) {
+            clearInterval(progress);
+            //alert('done');
+            go_to("welcome_page");
+        } else
+            progression += 5;
+
+    }, 250);
+
+
+//}
+//setTimeout(function() {go_to("welcome_page")}, 2000);
+}//loadp
+
+function load_all_pages(){
+get_page2("show_cards");
+get_page2("show_logs");
+get_page2("show_ipn");
+get_page2("show_offer");
+get_page2("show_feedback");
+get_page2("show_payments");
+get_page2("welcome_page");
+get_page2("login_page");
+get_page2("send_card_form");
+get_page2("add_offer_form");
+get_page2("add_card_form");
+get_page2("count_cards");
+get_page2("report1");
+get_page2("report2");
+
+//displayme();
+}//load all pages 
+
+$(window).load(function() {	
+});
+
+$(window).bind("load", function() {
+});
+
+$( document ).ready(function() {
+displayme();
+//load_all_pages();
+});
+
+$( "#password" ).keypress(function( event ) {
+  if ( event.which == 13 ) {
+   checkme();  
+  }  
+});
+$( "#password" ).click(function() {
+  //load_all_pages();
+});
+
+</script>
+
+<style type="text/css">
+	
+
+</style>

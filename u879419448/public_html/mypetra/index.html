@@ -1,0 +1,195 @@
+<div class="loader" align="center"style="position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;">
+  <h1>Loading.....</h1>
+  <br>
+  </div>
+
+<style type="text/css">
+.loader {
+  position: fixed;
+  left: 0px;
+  top: 0px;
+  width: 20px;
+  height: 20px;
+  z-index: 9999;
+  background: url('files/ajax-loader.gif') 50% 50% no-repeat rgb(249,249,249);
+  
+}  
+</style>
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8"> 
+        <meta charset="utf-8">
+        <title>myPetra - Myraseed</title>
+        <meta name="generator" content="Bootply" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+       
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+        <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.5.0/bootstrap-table.min.css" rel="stylesheet" >        
+       
+       <!--
+        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="css/bootstrap-table.min.css" rel="stylesheet" >        
+       -->
+
+        <!--[if lt IE 9]>
+          <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+        <link rel="shortcut icon" href="/bootstrap/img/favicon.ico">
+        <link rel="apple-touch-icon" href="/bootstrap/img/apple-touch-icon.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/bootstrap/img/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/bootstrap/img/apple-touch-icon-114x114.png">
+
+
+
+
+
+
+
+
+        <!-- CSS code from Bootply.com editor -->
+        
+        <style type="text/css">
+          body {
+            padding-top: 50px;
+          }
+
+        </style>
+    </head>
+    
+    <!-- HTML code from Bootply.com editor -->
+    
+    <body  >
+        
+        <div class="navbar navbar-inverse navbar-fixed-bottom">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#">myPetra</a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav" style="display:none" id="all_page" >
+                      <li><a href="#" onclick="go_to('show_cards','grid','cards')">Card List <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></a></li>
+<li><a href="#" onclick="go_to('show_cards_uploaded','grid','cards_uploaded')">Cards uploaded Date <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span></a></li>
+                    
+                      <li><a href="#" onclick="go_to('add_card_form','form');set_tbl_url('show_cards','cards');">Add a Card <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>                    
+                        <li><a href="#" onclick="go_to('show_logs','grid','op_log')">Show Logs <span class="glyphicon glyphicon-time" aria-hidden="true"></span></a></li>     
+                        
+                        
+                                                                                                                           
+                     <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#" onclick="go_to('count_cards','report')">Report Total Cards</a></li>                                      
+                       <li><a href="#" onclick="go_to('report1/2015','report')">Report 2015</a></li>  
+                       <li><a href="#" onclick="go_to('report1/2014','report')">Report 2014</a></li>  
+                       <li><a href="#" onclick="go_to('report1/2013','report')">Report 2013</a></li> 
+                       <li><a href="#" onclick="go_to('report2','report')">Report by Email</a></li>  
+                    </ul>
+                  </li>     
+                    
+                    <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Payment Details <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li><a href="#" onclick="go_to('show_payments','grid','payments')">Payment History</a></li>                                    
+                       <li><a href="#" onclick="go_to('show_ipn','grid','ipn_table')">Payment Details</a></li>                                      
+                         <li><a href="#" onclick="go_to('send_card_form','form');set_tbl_url('show_logs','op_log');">Send Card Manually</a></li> 
+                    </ul>
+                  </li>
+
+                          
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Offer Settings<b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                       <li><a href="#" onclick="go_to('show_feedback','grid','people')">Show Feedback</a></li>   
+                         <li><a href="#" onclick="go_to('show_offer','grid','nas')">Show Numbers in offer</a></li>  
+                         <li><a href="#" onclick="go_to('add_offer_form','form');set_tbl_url('show_offer','nas');">Add Number to offer <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></a></li>  
+                    </ul>
+                  </li>
+                </ul> 
+                       <ul class="nav navbar-nav navbar-right">
+                       <!--<li><a id="load_all_pages_link" href="#" onclick="loadp();">Refresh Page</a></li>  -->
+                          <li><a href="#" onclick="logout_action()"><p class="text-danger"> <strong>LOGOUT <span class="glyphicon glyphicon-off" aria-hidden="true"></span> </strong></p></a></li>                                                            
+                     </ul>
+
+    </div><!--/.nav-collapse -->
+  </div>
+</div>
+
+<div class="container">
+   <div id="login_form" class="container">
+                <div class="row vertical-offset-100">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">                                
+                                <div class="row-fluid user-row" align="center">
+                                    <img src="http://lorempixel.com/600/250/technics" class="img-responsive" alt="Conxole Admin"/>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                
+                                    <fieldset>
+                                        <label class="panel-login">
+                                            <div class="login_result"></div>
+                                        </label>                                        
+                                        <input class="form-control" placeholder="Password" id="password" type="password">
+                                        <br></br>
+                                        <input class="btn btn-lg btn-default btn-block" type="submit" id="login_button" onclick="checkme()" value="Login »">
+                                    </fieldset>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+              <!--<div id="content" class="wrapper jumbotron"  style="background:rgba(255,255,255,0.5); background-image: url('files/bg.png');" >-->
+
+              <div id="content" class="container">
+              </div>
+          
+
+  
+</div>
+        
+    </body>
+</html>
+
+<script src="files/jquery.js"></script>
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
+<script src="files/bootstrap.min.js"></script>
+<script src="files/bootstrap-table.min.js"></script>
+<script src="files/jquery.easyui.min.js"></script>
+<script src="files/notify.min.js"></script>
+
+<script src="files/hassan.js"></script>
+
+<script type="text/javascript">
+  
+$(document).on('click','.navbar-collapse.in',function(e) {
+    if( $(e.target).is('a') ) {
+        $(this).collapse('hide');
+    }
+});
+</script>
+
+
+
+<script type="text/javascript">
+$(window).load(function() {
+  $(".loader").fadeOut("slow");
+})
+</script>

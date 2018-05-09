@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Myraseed.com Admin</title>
+  <head>
+      
+    <meta charset="utf-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/lumen/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.5.0/bootstrap-table.min.css">
+
+<script src="jquery.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-table/1.5.0/bootstrap-table.min.js"></script>
+<!--<script src="//www.jeasyui.com/easyui/jquery.easyui.min.js"></script>-->
+<script src="files/jquery.easyui.min.js"></script>
+
+</head>
+
+
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="row clearfix">
+				<div  class="col-md-12 column">
+					
+					<div id="header" class="navbar navbar-default">
+						  <div class="navbar-header">
+						    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-inverse-collapse">
+						      <span class="icon-bar"></span>
+						      <span class="icon-bar"></span>
+						      <span class="icon-bar"></span>
+						    </button>
+						    <a class="navbar-brand" href="#">Myraseed.com</a>
+						  </div>
+						  <div class="navbar-collapse collapse navbar-inverse-collapse">
+						    <ul class="nav navbar-nav">
+						          <li><a href="#" onclick="go_to('show_cards','grid','cards')">Card List</a></li>		
+						          <li><a href="#" onclick="go_to('add_card_form','')">Add a Card</a></li>  
+						       
+					              <li><a href="#" onclick="go_to('show_logs','grid','op_log')">Show Logs</a></li>  		
+					              			                          					               					             
+					               
+
+					           <li class="dropdown">
+						        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Reports<b class="caret"></b></a>
+						        <ul class="dropdown-menu">
+						          <li><a href="#" onclick="go_to('count_cards','')">Report Total Cards</a></li>  					                           
+						           <li><a href="#" onclick="go_to('report1/2015','')">Report 2015</a></li>  
+						           <li><a href="#" onclick="go_to('report1/2014','')">Report 2014</a></li>  
+						           <li><a href="#" onclick="go_to('report1/2013','')">Report 2013</a></li> 
+						           <li><a href="#" onclick="go_to('report2','')">Report by Email</a></li>  
+						        </ul>
+						      </li>     
+					          
+					          <li class="dropdown">
+						        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Payment Details<b class="caret"></b></a>
+						        <ul class="dropdown-menu">
+						          <li><a href="#" onclick="go_to('show_payments','grid','payments')">Payment History</a></li>					                           
+						           <li><a href="#" onclick="go_to('show_ipn','grid','ipn_table')">Payment Details</a></li>					                            
+					               <li><a href="#" onclick="go_to('send_card_form','')">Send Card Manually</a></li> 
+						        </ul>
+						      </li>
+
+					              	
+						      <li class="dropdown">
+						        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Offer Settings<b class="caret"></b></a>
+						        <ul class="dropdown-menu">
+						           <li><a href="#" onclick="go_to('show_feedback','grid','people')">Show Feedback</a></li>   
+					               <li><a href="#" onclick="go_to('show_offer','grid','nas')">Show Numbers in offer</a></li>  
+					               <li><a href="#" onclick="go_to('add_offer_form','')">Add Number to offer</a></li>  
+						        </ul>
+						      </li>
+						    </ul>	
+						    			 <ul class="nav navbar-nav navbar-right">
+						    			 <li><a href="#" onclick="loadp();">Load Pages</a></li>	
+										      <li><a href="#" onclick="go_to('login_page','');$( '#header' ).hide();">Logout</a></li>										      
+										 </ul>
+
+						  </div>
+						</div>
+
+
+				</div>
+			</div>
+			<div class="row clearfix">
+				<div class="col-md-1 column">
+				</div>
+				<div  class="col-md-10 column container" >
+					
+					<div class="panel">
+						 <div id="loading" align='center'><h3>Loading....</h3></div>
+						  <div id="content" class="panel-body" style="max-height: 500px;overflow: auto;">
+    					<div align='left'>
+    						<h2>W-elcome to Secure Myraseed Page! Please enter Password to login. </h2><br>
+    						<input type="password" class="form-control" id="password" placeholder="Password" required> 
+    						<a id="login_button" href="#" class="btn btn-danger" onclick="checkme()">Login !</a>
+
+    					</div>
+  							</div>
+					</div>
+
+				</div>
+				
+				<div class="col-md-1 column">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript">
+var pages = [];
+var jsond = [];
+var gurl = "";
+var gtbl = "";
+
+$("#header").hide();
+$("#content").hide();
+var loadingpageurl = "<div align='center'><h3>Loading....</h3></div>";
+</script>
+
+
+<script type="text/javascript">
+
+function displayme(){
+$("#loading").hide();
+$("#content").fadeIn("slow");
+}//displ
+
+function go_to_page($url){
+console.log("Loading from Server:"+$url);	
+var x="http://myraseed.com/cards/index.php/secure_data/"+$url;
+$("#content").html(loadingpageurl);
+$('#content').load(x, "",
+        function(responseText, textStatus, XMLHttpRequest) {         
+        	console.log("Loading-Done:"+$url);
+	 	 	displayme();
+            if(textStatus == 'error') {
+            	 $('#content').html('<div align="center"><h3>Error in Loading Page !....</h3></div>');
+            }
+        }
+    );
+
+}// to to
+
+function go_to($url,$ptype,$tbl){
+	$("#content").html("");
+	$("#content").hide();
+	$("#content").html(pages[$url]);	
+	//console.log("load page from cash:"+$url);
+		if ($ptype == "grid") {
+			$('#mytable').bootstrapTable({data: jsond[$url]});
+			$('#mytable').bootstrapTable('load', jsond[$url]);	
+			gurl = $url;
+			gtbl = $tbl;
+			//console.log("load json from cash:"+$url);
+		};
+	displayme();
+}// to to
+
+function load_mytable_data(){
+console.log("refresh grid"+gurl);	
+$('#mytable').bootstrapTable({data: jsond[gurl]});
+$('#mytable').bootstrapTable('load', jsond[gurl]);						
+}//load mytable data
+ 
+$('#mymodal').on('hide',function(e){
+  load_mytable_data($gurl);
+  alert();
+});
+
+ </script>
+
+<script>
+function checkme(){  
+  var xx = $("#password").val();
+  if (xx=="") {
+  	alert("Please Enter Password!");
+  } 
+  else{
+  $("#login_button").button('loading');  
+  $.ajax({
+    url: 'http://myraseed.com/cards/index.php/secure_data/check_me/'+xx,
+    type:'GET',
+    dataType: 'json',
+    context: this,
+    success: function(values)
+            {               
+                if (values.sts=="true") {
+				 $( "#header" ).show();
+				 //load_all_pages();                		
+                 go_to("welcome_page","");
+                }                 
+                if (values.sts=="false") {
+				 alert("Wrong Password !");                 
+                }                                                             
+            $("#login_button").button('reset');
+            } 
+  });
+};
+}//check me
+</script>
+
+
+</html>
+
+<script type="text/javascript">// A $( document ).ready() block.
+function loadp(){
+load_all_pages();
+$("#content").html('<div class="progress progress-striped active"><div id="bar" class="progress-bar" style="width: 0%"></div></div>');
+var progression = 0;
+    progress = setInterval(function() 
+    {
+        $('#bar').html(progression + '%');
+        $('#bar').css({'width':progression+'%'});
+        if(progression >= 100) {
+            clearInterval(progress);
+            //alert('done');
+            go_to("welcome_page","");
+        } else
+            progression += Math.floor(Math.random() * 10)+5;
+
+    }, 500);
+
+}//loadp
+
+function get_page2($url){
+var scriptUrl ="http://myraseed.com/cards/index.php/secure_data/"+$url;
+$.ajax({
+        url: scriptUrl,
+        type: 'get',
+        dataType: 'html',
+        async: true,
+        success: function(data) {
+            result = data;
+            pages[$url] = result;            
+            //console.log("Loading_html:"+$url);
+        },
+        error: function(){
+        	console.log("Loading_ARR ERROR:"+$url);	
+        } 
+     });
+}// get page2
+
+function getJsond($url, $tbl){
+var scriptUrl ="http://myraseed.com/cards/index.php/frontpage/get/"+$tbl;
+$.ajax({
+        url: scriptUrl,        
+        dataType: 'json',
+        async: true,
+        success: function(data) {
+            result = data;
+            jsond[$url] = result;      
+            //console.log("Loading Json:"+$tbl);     
+        },
+        error: function(){
+        	console.log("Loading_Json ERROR:"+$url);	
+        } 
+     });	
+}// JSON LOAD
+function load_all_pages(){
+get_page2("welcome_page");
+
+get_page2("show_cards");		getJsond("show_cards","cards");
+get_page2("show_logs");			getJsond("show_logs","op_log");
+get_page2("show_ipn"); 			getJsond("show_ipn","ipn_table");
+get_page2("show_offer"); 		getJsond("show_offer","nas");
+get_page2("show_feedback");		getJsond("show_feedback","people");
+get_page2("show_payments");		getJsond("show_payments","payments");
+
+get_page2("count_cards");	
+get_page2("login_page");
+get_page2("send_card_form");
+get_page2("add_offer_form");
+get_page2("add_card_form");
+get_page2("report1/2015");
+get_page2("report1/2014");
+get_page2("report1/2013");
+get_page2("report2");
+
+}//load all pages 
+
+function load_all_json(){
+		getJsond("show_cards","cards");
+		getJsond("show_logs","op_log");
+ 		getJsond("show_ipn","ipn_table");
+ 		getJsond("show_offer","nas");
+		getJsond("show_feedback","people");
+		getJsond("show_payments","payments");
+}//load all json
+
+$( document ).ready(function() {
+load_all_pages();
+load_progress_bar(500);
+});
+
+function load_progress_bar($ms){
+$("#loading").html('<div class="progress progress-striped active"><div id="bar" class="progress-bar" style="width: 0%"></div></div>');
+var progression = 0;
+    progress = setInterval(function() 
+    {
+        $('#bar').html(progression + '%');
+        $('#bar').css({'width':progression+'%'});
+        if(progression >= 100) {
+            clearInterval(progress);            
+            $("#loading").html("");
+            displayme();
+        } else
+            progression += Math.floor(Math.random() * 10);
+
+    }, $ms); 
+}// load p b
+
+$( "#password" ).keypress(function( event ) {
+  if ( event.which == 13 ) {
+   checkme();  
+  }  
+});
+</script>
+

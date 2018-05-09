@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<title>Myraseed.com Cards</title>
+  <head>
+      
+    <meta charset="utf-8" /> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<link href="//maxcdn.bootstrapcdn.com/bootswatch/3.3.1/lumen/bootstrap.min.css" rel="stylesheet">
+<script src="files/jquery.js"></script>
+<script src="files/bootstrap.min.js"></script>
+<script src="files/notify.min.js"></script>
+
+
+</head>
+
+        
+            <div id="login_form" class="container">
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">                                
+                                <div class="row-fluid user-row" align="center">
+                                    <img src="files/ptid.png" class="img-responsive" alt="Conxole Admin"/>
+                                </div>
+                            </div>
+                            <div id= "content"class="panel-body">                                                                                                 
+                            </div>
+                            <a href="http://www.myraseed.com" class="btn btn-link">Go to myRaseed.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+		
+
+</html>
+
+<script type="text/javascript">
+
+function get_page($url){
+var scriptUrl ="http://myraseed.com/cards/index.php/secure_data/"+$url;
+$.ajax({
+        url: scriptUrl,
+        type: 'get',
+        dataType: 'html',
+        async: true,
+        success: function(data) {
+            result = data;
+             display(result);            
+            console.log("Loading_html:"+$url);
+            //console.log("Loading_html");
+        },
+        error: function(){
+          console.log("Loading_ARR ERROR:"+$url); 
+        } 
+     });
+}// get page2
+
+function display($result){
+    $("#content").html("");
+    $("#content").hide();
+    $("#content").html($result);    
+    $("#content").fadeIn("slow");    
+}// to to
+
+function load_all_pages(){
+get_page("show_my_card_via_paypal_id");
+}//load all pages 
+
+$( document ).ready(function() {
+//load_all_pages();
+//$.notify("BOOM!", "error");
+load_progress_bar(250,true);
+});
+
+function load_progress_bar($ms,$page){
+
+$("#content").html('<div class="progress progress-striped active"><div id="bar" class="progress-bar" style="width: 0%"></div></div>');
+var progression = 0;
+    progress = setInterval(function() 
+    {
+        $('#bar').html(progression + '%');
+        $('#bar').css({'width':progression+'%'});
+        if(progression >= 100) {
+        	clearInterval(progress);  
+            get_page("show_my_card_via_paypal_id");
+        } else
+            progression += 1;
+
+    }, $ms); 
+}// load p 
+</script>
